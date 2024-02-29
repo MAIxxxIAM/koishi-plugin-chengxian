@@ -1,0 +1,92 @@
+{
+    "identity": [
+        {
+            "id": "0",
+            "name": "街边乞丐",
+            "ability": {
+                "perception": 1,
+                "flesh": 7,
+                "magic": 2
+            },
+            "lingshi": 50,
+            "descript": "常年因为乞讨被殴打，肉体强度超于常人，但是你的悟性和法力可以忽略不计"
+        },
+        {
+            "id":"1",
+            "name": "打杂小厮",
+            "ability": {
+                "perception": 2,
+                "flesh": 4,
+                "magic": 2
+            },
+            "lingshi": 500,
+            "descript": "打杂小厮，有力气但不多，法力低微，悟性极差"
+        },
+        {
+            "id": "2",
+            "name": "官衙捕快",
+            "ability": {
+                "perception": 4,
+                "flesh": 4,
+                "magic": 1
+            },
+            "lingshi": 600,
+            "descript": "本来只能当一辈子捕快，幸运的是你天资聪慧，悟性较好"
+        },
+        {
+            "id": "3",
+            "name": "落第秀才",
+            "ability": {
+                "perception": 5,
+                "flesh": 2,
+                "magic": 3
+            },
+            "lingshi": 500,
+            "descript": "连续赶考20年，只讨了个秀才。饱读诗书让你悟性超出常人"
+        },
+        {
+            "id": "4",
+            "name": "菜场屠户",
+            "ability": {
+                "perception": 3,
+                "flesh": 3,
+                "magic": 3
+            },
+            "lingshi": 700,
+            "descript": "膀大腰圆，一看就是干屠户的料"
+        },
+        {
+            "id": "5",
+            "name": "富家公子",
+            "ability": {
+                "perception": 3,
+                "flesh": 1,
+                "magic": 3
+            },
+            "lingshi": 1200,
+            "descript": "身体因夜生活而透支,肉体孱弱，但是家财万贯"
+        },
+        {
+            "id": "6",
+            "name": "豪门千金",
+            "ability": {
+                "perception": 2,
+                "flesh":2,
+                "magic": 4
+            },
+            "lingshi": 1200,
+            "descript": "对法力亲和度极高，但是待字闺中，不读圣贤，四体不勤"
+        },
+        {
+            "id": "7",
+            "name": "方外道人",
+            "ability": {
+                "perception":4,
+                "flesh": 2,
+                "magic": 4
+            },
+            "lingshi": 300,
+            "descript": "方外之人，道门正统，自幼在山上修行，法力、悟性尚可，"
+        }
+    ]
+}

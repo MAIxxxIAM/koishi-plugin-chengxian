@@ -1,6 +1,6 @@
 {
   "name": "koishi-plugin-chengxian",
-  "description": "通过努力，修炼成仙",
+  "description": "炼胸中五气，聚顶上三花，内练龙虎，火中种莲，借假修真，成就长生（开发中）",
   "version": "0.0.1",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -9,14 +9,15 @@
     "dist"
   ],
   "license": "MIT",
-  "scripts": {},
   "keywords": [
     "chatbot",
     "koishi",
     "plugin"
   ],
-  "devDependencies": {},
   "peerDependencies": {
     "koishi": "^4.17.1"
+  },
+  "koishi": {
+    "preview": true
   }
 }
