@@ -1,5 +1,5 @@
 import { Context, Session } from "koishi"
-import { Ability, Friar, Xian } from "../user"
+import { Ability, Friar, Position, Xian } from "../user"
 import { identity } from "./data"
 import { Config } from ".."
 
@@ -23,7 +23,10 @@ export function createNewPlayer(session: Session<never, never, Context>, name: s
     const friar: Friar = {
         name,
         age: Math.floor(Math.random() * 60 + 60),
-        cultivation: 0,
+        cultivation: {
+            stage: 0,
+            qi: 0
+        },
         identity: identityRandom.id,
         ability: rollAbility(identityRandom.ability)
     }
@@ -32,7 +35,8 @@ export function createNewPlayer(session: Session<never, never, Context>, name: s
     const xian: Xian = {
         id,
         friar,
-        lingshi:identityRandom.lingshi
+        lingshi: identityRandom.lingshi,
+        position: new Position(0, 0)
     }
     return xian
 }
@@ -70,9 +74,9 @@ export function rollAbility({ perception, flesh, magic }): Ability {
 }
 
 //markdown模板
-export function md(config:Config, content:string[],session:Session<never, never, Context>){
+export function md(config: Config, content: string[], session: Session<never, never, Context>) {
     //config配置对象转为数组
-    const keys = [config.key1,config.key2,config.key3,config.key4,config.key5,config.key6,config.key7,config.key8,config.key9,config.key10]
+    const keys = [config.key1, config.key2, config.key3, config.key4, config.key5, config.key6, config.key7, config.key8, config.key9, config.key10]
 
     //根据config配置对象，生成markdown数据
     const data = keys.map((key, index) => {
@@ -107,3 +111,24 @@ export function button(按钮类型: number, 权限: number, 按钮文字: strin
         },
     }
 }
+
+export function getQi(culTime: number, player: Xian) {
+
+    //获取玩家悟性
+    const perception = player.friar.ability.perception
+
+    //获取身份加成
+    const x: number = identity[player.friar.identity].ability.perception
+
+    //通过时间差计算修炼获得的经验
+    const getQi = culTime * perception / (200 - x * 6)
+    
+    //通过时间差计算修炼花费的灵石.一颗灵石折算10点气
+    const spendLingshi = culTime/(1000*60)* getQi/10
+
+    return {
+        getQi,
+        spendLingshi
+    }
+}
+

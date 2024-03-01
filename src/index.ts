@@ -76,7 +76,7 @@ export function apply(ctx: Context, config: Config) {
             keyboard: {
               content: {
                 "rows": [
-                  { "buttons": [button(2, 2, '重新注册', "/注册", session.userId, "注册", false)] },
+                  { "buttons": [button(2, 2, '输入一个2-6个汉字的名字进行注册', "/注册", session.userId, "注册", false)] },
                 ]
               },
             },
@@ -86,7 +86,7 @@ export function apply(ctx: Context, config: Config) {
           })
           return
         } catch (e) {
-          return '名字不符合规范,请重新输入'
+          return '输入一个2-6个汉字的名字进行注册'
         }
       }
 

@@ -15,14 +15,14 @@ export function Model(ctx: Context) {
     id: 'string',
     friar: 'json',
     equip: 'json',
-    lingshi: 'unsigned'
+    lingshi: 'unsigned',
+    position: 'json'
   }, {
     primary: 'id'
   })
   ctx.model.extend('cultivation', {
     id: 'string',
-    setTimeId: 'unsigned',
-    overTime: 'timestamp'
+    startTime: 'timestamp'
   }, {
     primary: 'id'
   })
