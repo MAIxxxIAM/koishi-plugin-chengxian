@@ -132,8 +132,6 @@ export function apply(ctx: Context, config: Config) {
             msg_seq: Math.floor(Math.random() * 1000000),
           })
 
-        return
-
       } catch {
 
         return `\u200b\n${content}`

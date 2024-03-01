@@ -1,6 +1,6 @@
 import { Context, Session } from "koishi"
 import { Ability, Friar, Position, Xian } from "../user"
-import { identity } from "./data"
+import { identity, map } from "./data"
 import { Config } from ".."
 
 
@@ -122,13 +122,33 @@ export function getQi(culTime: number, player: Xian) {
 
     //通过时间差计算修炼获得的经验
     const getQi = culTime * perception / (200 - x * 6)
-    
+
     //通过时间差计算修炼花费的灵石.一颗灵石折算10点气
-    const spendLingshi = culTime/(1000*60)* getQi/10
+    const spendLingshi = culTime / (1000 * 60) * getQi / 10
 
     return {
         getQi,
         spendLingshi
+    }
+}
+
+export function positionAreas(position: Position) {
+
+    //获取玩家坐标
+    const { x, y } = position
+
+    //获取玩家周围的坐标
+    const up = map[`${x},${y + 1}`]
+    const down = map[`${x},${y - 1}`]
+    const left = map[`${x - 1},${y}`]
+    const right = map[`${x + 1},${y}`]
+
+    //返回周围坐标，有设施则返回设施id，没有则返回undefined
+    return {
+        up: up ? up.id : undefined,
+        down: down ? down.id : undefined,
+        left: left ? left.id : undefined,
+        right: right ? right.id : undefined
     }
 }
 
