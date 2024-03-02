@@ -8,16 +8,17 @@ export class Monster{
     name:string
     ability:Ability
     level:number
+    type:number
     constructor(maxLevel:number,minLevel:number){
         const animals = [
-            '虎', '龙', '鹿', '狐', '狼', '熊', '鹤', '鸠', '鹰', '鸡',
-            '鸭', '鹅', '鹿', '猿', '猴', '猪', '牛', '马', '羊', '鸽'
+            '虎', '龙', '鹿', '狐', '狼', '熊', '鹤', '鸠', '鹰', '鼠',
+            '鼍', '兕', '鹿', '猿', '猴', '猪', '牛', '马', '羊', '狨'
           ]
 
         //随机选择一种怪物
         const randomMonster = Math.floor(Math.random() * monster.length)
 
-
+          this.type = randomMonster
 
         //随机生成怪物能力属性和等级
         this.ability =rollAbility(monster[randomMonster].ability)
