@@ -17,7 +17,7 @@ export function createNewPlayer(session: Session<never, never, Context>, name: s
     const id = getPid(session)
 
     //随机选择一个身份，身份数据，初始10点
-    const identityRandom = identity[Math.floor(Math.random() * 8)]
+    const identityRandom = identity[Math.floor(Math.random() * identity.length)]
 
     //初始化角色数据，年龄60-120岁，修为0，能力随机
     const friar: Friar = {

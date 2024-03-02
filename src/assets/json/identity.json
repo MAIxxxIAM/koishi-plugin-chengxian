@@ -92,69 +92,39 @@
     "monster":[
         {
             "id": "0",
-            "name": "野狗",
-            "ability": {
-                "perception": 2,
-                "flesh": 3,
-                "magic": 0
-            },
-            "lingshi": 10,
-            "descript": "野狗，凶猛，但是不会法术"
-        },
-        {
-            "id": "1",
-            "name": "野猪",
+            "name": "妖",
             "ability": {
                 "perception": 2,
                 "flesh": 5,
-                "magic": 0
-            },
-            "lingshi": 20,
-            "descript": "野猪，凶猛，但是不会法术"
+                "magic": 1
+            }
+        },
+        {
+            "id": "1",
+            "name": "精",
+            "ability": {
+                "perception": 3,
+                "flesh": 2,
+                "magic": 5
+            }
         },
         {
             "id": "2",
-            "name": "野狼",
+            "name": "鬼",
             "ability": {
-                "perception": 3,
-                "flesh": 4,
-                "magic": 0
-            },
-            "lingshi": 30,
-            "descript": "野狼，凶猛，但是不会法术"
+                "perception": 2,
+                "flesh": 2,
+                "magic": 5
+            }
         },
         {
             "id": "3",
-            "name": "野熊",
+            "name": "怪",
             "ability": {
                 "perception": 4,
-                "flesh": 6,
-                "magic": 0
-            },
-            "lingshi": 50,
-            "descript": "野熊，凶猛，但是不会法术"
-        },
-        {
-            "id": "4",
-            "name": "野虎",
-            "ability": {
-                "perception": 5,
-                "flesh": 7,
-                "magic": 0
-            },
-            "lingshi": 100,
-            "descript": "野虎，凶猛，但是不会法术"
-        },
-        {
-            "id": "5",
-            "name": "野象",
-            "ability": {
-                "perception": 6,
-                "flesh": 8,
-                "magic": 0
-            },
-            "lingshi": 200,
-            "descript": "野象，凶猛，但是不会法术"
+                "flesh": 4,
+                "magic": 3
+            }
         }
     ]
 }
