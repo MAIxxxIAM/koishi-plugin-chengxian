@@ -1,3 +1,4 @@
+import { Elements } from "../pill";
 import { Ability } from "../user";
 import { monster, monsterStage } from "../utils/data";
 import { rollAbility } from "../utils/method";
@@ -9,6 +10,7 @@ export class Monster{
     ability:Ability
     level:number
     type:number
+    element:Elements
     constructor(maxLevel:number,minLevel:number){
         const animals = [
             '虎', '龙', '鹿', '狐', '狼', '熊', '鹤', '鸠', '鹰', '鼠',
@@ -27,7 +29,9 @@ export class Monster{
         this.level = Math.floor(Math.random() * (maxLevel - minLevel + 1) + minLevel)
 
         //根据等级确定颜色
-        const color = (monsterStage.filter(stage=>{stage.level.includes(this.level)}))[0].name
+          const {name,Ele} = (monsterStage.filter(stage=>{stage.level.includes(this.level)}))[0]
+          const color = name
+          this.element = Ele
 
         //根据动物，颜色，类型，生成怪物名字
         this.name = color + animals[Math.floor(Math.random() * animals.length)] + monster[randomMonster].name

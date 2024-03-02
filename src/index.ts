@@ -1,5 +1,7 @@
 import { Context, Dict, Schema } from 'koishi'
 
+import * as test from './test'
+
 //model文件中定义了数据库表
 import { Model } from './model'
 
@@ -60,6 +62,8 @@ export function apply(ctx: Context, config: Config) {
   // 为 koishi 添加新的数据库表
   Model(ctx)
 
+  ctx.plugin(test)
+
   ctx.command('xian', '百炼成仙')
     .subcommand('register <name:string>', '注册一个角色')
     .alias('注册')
@@ -103,7 +107,7 @@ export function apply(ctx: Context, config: Config) {
 
       //写入数据库
       await ctx.database.create('xian', player)
-      const content = `你的角色名字是${name}\n你重生在一个修仙世界\n成为了一名${identity[player.friar.identity].name}\n${identity[player.friar.identity].descript}\n带着${player.lingshi}灵石踏上了修仙之路\n初始能力：\n悟性：${player.friar.ability.perception}\n肉身：${player.friar.ability.flesh}\n法力：${player.friar.ability.magic}\rtips:身份只影响加成属性，实际面板由ROLL点+身份加成`
+      const content = `你的角色名字是${name}\n你重生在一个修仙世界\n成为了一名${identity[player.friar.identity].name}\n${identity[player.friar.identity].description}\n带着${player.lingshi}灵石踏上了修仙之路\n初始能力：\n悟性：${player.friar.ability.perception}\n肉身：${player.friar.ability.flesh}\n法力：${player.friar.ability.magic}\rtips:身份只影响加成属性，实际面板由ROLL点+身份加成`
 
       //尝试发送md消息，失败则发送普通消息
       try {

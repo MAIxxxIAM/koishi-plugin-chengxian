@@ -1,10 +1,12 @@
+import { Pill } from "../pill"
+
 //装备 武器和防具
 export interface Equip {
     weapon?: number
     armor?: number
 }
 
-export interface playerStage{
+export interface PlayerStage{
     stage:number
     qi:number
 }
@@ -13,7 +15,7 @@ export interface playerStage{
 export interface Friar {
     name: string
     age: number
-    cultivation: playerStage
+    cultivation: PlayerStage
     ability: Ability
     identity: string
 }
