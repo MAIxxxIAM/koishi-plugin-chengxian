@@ -36,7 +36,7 @@ export function createNewPlayer(session: Session<never, never, Context>, name: s
         id,
         friar,
         lingshi: identityRandom.lingshi,
-        position: new Position(0, 0)
+        position: new Position({x:0, y:0})
     }
     return xian
 }

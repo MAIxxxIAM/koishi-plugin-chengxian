@@ -1,5 +1,5 @@
 import { Context } from "koishi";
-import { Xian } from "../user";
+import { Position, Xian } from "../user";
 import { CreatePill, Pill } from "../pill";
 import { stage } from "../utils/data";
 
@@ -7,15 +7,17 @@ import { stage } from "../utils/data";
 
 
 export function apply(ctx:Context){
-    // ctx.command('test1', '测试').action(async ({ session }) => {
-    //     const { userId, channelId } = session
-    //   const player:Xian=(await ctx.database.get('xian', { id: userId+channelId}))[0]
-    //   const pill = new CreatePill(2, 4)
-    //   console.log(pill)
-    //   await ctx.database.set('xian', { id: userId+channelId }, { pill: pill })
-    //   await session.send(pill.description)
+    ctx.command('test1 <pMove>', '测试').action(async ({ session },pMove:"东" | "西" | "南" | "北") => {
+        const { userId, channelId } = session
+      const player:Xian=(await ctx.database.get('xian', { id: userId+channelId}))[0]
+      const move = new Position(player.position)
+      console.log(move)
+      const str=move.move(pMove,player)
+      console.log(player.position)
+      await ctx.database.set('xian', { id: userId+channelId }, { position:player.position})
+      await session.send(player.friar.name+str+"当前位置:"+player.position.x+","+player.position.y)
     //   await session.send(`寿元:${player.friar.age} 修为:${stage[player.friar.cultivation.stage].stage}${player.friar.cultivation.qi} 悟性:${player.friar.ability.perception} 肉身:${player.friar.ability.flesh} 法力:${player.friar.ability.magic}`)
-    // })
+    })
 
     // ctx.command('test2', '测试').action(async ({ session }) => {
     //     const { userId, channelId } = session

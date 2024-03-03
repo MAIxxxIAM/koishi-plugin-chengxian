@@ -99,7 +99,7 @@ export class Pill {
     attribute: FrialAdd
     value: number
     description: string
-    constructor(public pill: { attribute: FrialAdd, value: number, description: string }) {
+    constructor(pill: { attribute: FrialAdd, value: number, description: string }) {
         this.attribute = pill.attribute
         this.value = pill.value
         this.description = pill.description
