@@ -19,6 +19,7 @@ export enum Elements {
 
 }
 
+//药物五味
 export enum Taste {
     Sour = Elements.Wood,
     Bitter = Elements.Fire,
@@ -34,7 +35,7 @@ enum WuxingRelation {
     IsShengedByMe = 2,
     IsKeedByMe = 1,
     KesMe = 4
-  }
+}
 //创建一个丹药类，包括属性和值
 export class CreatePill {
     attribute: FrialAdd
@@ -43,23 +44,36 @@ export class CreatePill {
 
     //构造函数，接受2个枚举值,五行和五味,通过逻辑判断相生相克生成丹药
     constructor(fiveElement: Elements, fiveTaste: Taste) {
+
+        //妖丹五行决定数值范围
         let stage = Math.floor(Math.random() * monsterStage[fiveElement].level[1] - monsterStage[fiveElement].level[0] + 1) + monsterStage[fiveElement].level[0]
-        let pillAttribute:number
-        let pillWuxing:number
+        let pillAttribute: number
+        let pillWuxing: number
         const attrString = ['修为', '悟性', '肉身', '法力']
-        const relation:WuxingRelation= (5 + fiveTaste - fiveElement) % 5
-        switch (relation){
+
+        //获得五味和五行的生克关系
+        const relation: WuxingRelation = (5 + fiveTaste - fiveElement) % 5
+
+        //根据五行生克关系生成丹药五行
+        switch (relation) {
             case 0:
-                pillAttribute=(fiveElement+2)%5
+                pillAttribute = fiveElement
                 break
             case 1:
-                pillAttribute=(fiveElement+3)%5
+                pillAttribute = (fiveElement + 4) % 5
+                break
+            case 4:
+                pillAttribute = (fiveElement + 2) % 5
                 break
             case 2:
+                pillAttribute = (fiveElement+ 4) % 5
+                break
             case 3:
-                pillAttribute=(fiveElement+1)%5
+                pillAttribute = (fiveElement + 1) % 5
                 break
         }
+
+        //五行入五脏，五脏藏五神，对应4种属性
         switch (pillAttribute) {
             case 0:
                 pillWuxing = FrialAdd.flesh
@@ -85,7 +99,7 @@ export class Pill {
     attribute: FrialAdd
     value: number
     description: string
-    constructor(public pill:{attribute: FrialAdd,value: number,description: string}) {
+    constructor(public pill: { attribute: FrialAdd, value: number, description: string }) {
         this.attribute = pill.attribute
         this.value = pill.value
         this.description = pill.description

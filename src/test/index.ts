@@ -10,7 +10,7 @@ export function apply(ctx:Context){
     // ctx.command('test1', '测试').action(async ({ session }) => {
     //     const { userId, channelId } = session
     //   const player:Xian=(await ctx.database.get('xian', { id: userId+channelId}))[0]
-    //   const pill = new CreatePill(0, 3)
+    //   const pill = new CreatePill(2, 4)
     //   console.log(pill)
     //   await ctx.database.set('xian', { id: userId+channelId }, { pill: pill })
     //   await session.send(pill.description)
