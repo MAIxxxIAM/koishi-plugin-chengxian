@@ -1,6 +1,7 @@
 import { Context } from "koishi";
 import { Xian } from "../user";
 import { CreatePill, Pill } from "../pill";
+import { stage } from "../utils/data";
 
 
 
@@ -13,7 +14,7 @@ export function apply(ctx:Context){
     //   console.log(pill)
     //   await ctx.database.set('xian', { id: userId+channelId }, { pill: pill })
     //   await session.send(pill.description)
-    //   await session.send(`寿元:${player.friar.age} 修为:${player.friar.cultivation} 悟性:${player.friar.ability.perception} 肉身:${player.friar.ability.flesh} 法力:${player.friar.ability.magic}`)
+    //   await session.send(`寿元:${player.friar.age} 修为:${stage[player.friar.cultivation.stage].stage}${player.friar.cultivation.qi} 悟性:${player.friar.ability.perception} 肉身:${player.friar.ability.flesh} 法力:${player.friar.ability.magic}`)
     // })
 
     // ctx.command('test2', '测试').action(async ({ session }) => {
@@ -23,7 +24,6 @@ export function apply(ctx:Context){
     //     pill.usePill(player)
     //     player.pill=null
     //     await ctx.database.upsert('xian',[ player])
-    //     await session.send(`寿元:${player.friar.age} 修为:${player.friar.cultivation} 悟性:${player.friar.ability.perception} 肉身:${player.friar.ability.flesh} 法力:${player.friar.ability.magic}`)
+    //     await session.send(`寿元:${player.friar.age} 修为:${stage[player.friar.cultivation.stage].stage}${player.friar.cultivation.qi} 悟性:${player.friar.ability.perception} 肉身:${player.friar.ability.flesh} 法力:${player.friar.ability.magic}`)
     // })
-
 }

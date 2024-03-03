@@ -16,7 +16,7 @@ export function Model(ctx: Context) {
     friar: 'json',
     equip: 'json',
     lingshi: 'unsigned',
-    position: 'json',
+    position: 'json'
   }, {
     primary: 'id'
   })

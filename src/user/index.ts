@@ -1,4 +1,3 @@
-import { Pill } from "../pill"
 
 //装备 武器和防具
 export interface Equip {
