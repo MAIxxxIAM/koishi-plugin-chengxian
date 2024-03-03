@@ -1,5 +1,5 @@
-import { Elements } from "../pill";
-import { Ability } from "../user";
+import { Elements } from "../pill/IPill";
+import { Ability } from "../user/IUser";
 import { monster, monsterStage } from "../utils/data";
 import { rollAbility } from "../utils/method";
 

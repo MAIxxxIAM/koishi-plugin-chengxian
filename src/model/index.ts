@@ -1,11 +1,10 @@
 import { Context } from "koishi"
-import { Cultivation, Xian } from "../user"
+import { Xian } from "../user/IUser"
 
 // 为 koishi 添加新的数据库表
 declare module 'koishi' {
     interface Tables {
       xian: Xian //玩家数据表
-      cultivation: Cultivation //修炼时刻表
     }
   }
 
@@ -16,14 +15,10 @@ export function Model(ctx: Context) {
     friar: 'json',
     equip: 'json',
     lingshi: 'unsigned',
-    position: 'json'
-  }, {
-    primary: 'id'
-  })
-  ctx.model.extend('cultivation', {
-    id: 'string',
+    position: 'json',
     startTime: 'timestamp'
   }, {
     primary: 'id'
   })
+
 }

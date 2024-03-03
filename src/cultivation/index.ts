@@ -1,6 +1,6 @@
 import { Context } from "koishi";
 import { getPid } from "../utils/method";
-import { Xian } from "../user";
+import { Xian } from "../user/IUser";
 
 
 

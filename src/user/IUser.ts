@@ -1,3 +1,5 @@
+import { Item } from "../item/Iitem"
+import { Pill } from "../pill/IPill"
 
 //装备 武器和防具
 export interface Equip {
@@ -26,11 +28,6 @@ export interface Xian {
     equip?: Equip
     lingshi: number
     position?: Position
-}
-
-//修炼时刻表，包括id，设置计时器id用于取消计时，修炼结束时间用于重启校正计时器
-export interface Cultivation {
-    id: string
     startTime?: Date
 }
 
@@ -83,4 +80,29 @@ export class Position {
         }
         return directionMap[direction]()
     }
+}
+
+export class FrialBage {
+    items?:Item[]
+    pills?:Pill[]
+    constructor (bag:{items:Item[],pills:Pill[]}){
+        this.items=bag.items
+        this.pills=bag.pills
+    }
+
+    addItem(item: Item | Pill) {
+        if (item instanceof Pill) {
+            this.pills?.push(item);
+        } else {
+            this.items?.push(item);
+        }
+    }
+    removeItem(item: Item | Pill) {
+        if (item instanceof Pill) {
+            this.pills?.splice(this.pills.indexOf(item), 1);
+        } else {
+            this.items?.splice(this.items.indexOf(item), 1);
+        }
+    }
+
 }

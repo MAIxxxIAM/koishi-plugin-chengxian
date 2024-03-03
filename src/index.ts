@@ -9,7 +9,7 @@ import { Model } from './model'
 import { button, createNewPlayer, getPid, md } from './utils/method'
 
 //user文件定义玩家角色的数据结构
-import { Xian } from './user'
+import { Xian } from './user/IUser'
 
 //data文件导入了一些静态数据,json或者图片等
 import { identity } from './utils/data'

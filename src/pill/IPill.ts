@@ -1,4 +1,4 @@
-import { Xian } from "../user"
+import { Xian } from "../user/IUser"
 import { monsterStage } from "../utils/data"
 
 
@@ -41,6 +41,7 @@ export class CreatePill {
     attribute: FrialAdd
     value: number
     description: string
+    name: string
 
     //构造函数，接受2个枚举值,五行和五味,通过逻辑判断相生相克生成丹药
     constructor(fiveElement: Elements, fiveTaste: Taste) {
@@ -77,21 +78,25 @@ export class CreatePill {
         switch (pillAttribute) {
             case 0:
                 pillWuxing = FrialAdd.flesh
+                this.name = '健体丹'
                 break
             case 1:
                 pillWuxing = FrialAdd.magic
+                this.name = '醒神丹'
                 break
             case 2:
             case 3:
                 pillWuxing = FrialAdd.perception
+                this.name = '心意丹'
                 break
             case 4:
                 pillWuxing = FrialAdd.cultivation
+                this.name = '问道丹'
                 break
         }
         this.attribute = pillWuxing
         this.value = stage
-        this.description = `这是一颗增加${attrString[this.attribute]}的丹药，服下增添 ${this.value} ${attrString[this.attribute]}`
+        this.description = `这是一颗增加${attrString[this.attribute]}的${this.name}，服下增添 ${this.value} ${attrString[this.attribute]}`
     }
 }
 
@@ -99,10 +104,12 @@ export class Pill {
     attribute: FrialAdd
     value: number
     description: string
-    constructor(pill: { attribute: FrialAdd, value: number, description: string }) {
+    name: string
+    constructor(pill: { attribute: FrialAdd, value: number, description: string,name: string }) {
         this.attribute = pill.attribute
         this.value = pill.value
         this.description = pill.description
+        this.name = pill.name
     }
 
 
