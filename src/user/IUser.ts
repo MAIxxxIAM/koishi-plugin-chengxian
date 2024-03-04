@@ -1,5 +1,6 @@
 import { Item } from "../item/Iitem"
 import { Pill } from "../pill/IPill"
+import { map } from "../utils/data"
 
 //装备 武器和防具
 export interface Equip {
@@ -29,6 +30,7 @@ export interface Xian {
     lingshi: number
     position?: Position
     startTime?: Date
+    status?:boolean
 }
 
 //能力，包括感知，肉身，法力
@@ -63,18 +65,34 @@ export class Position {
         const directionMap = {
             '东': () => {
                 this.right(player)
+                if (map.find(P=>P.coordinates==player.position.x + ',' + player.position.y) === undefined||map.find(P=>P.coordinates==player.position.x + ',' + player.position.y).level>player.friar.cultivation.stage) {
+                    this.left(player)
+                    return false
+                }
                 return '向东移动'
             },
             '西': () => {
                 this.left(player)
+                if (map.find(P=>P.coordinates==player.position.x + ',' + player.position.y) === undefined||map.find(P=>P.coordinates==player.position.x + ',' + player.position.y).level>player.friar.cultivation.stage) {
+                    this.right(player)
+                    return false
+                }
                 return '向西移动'
             },
             '南': () => {
                 this.down(player)
+                if (map.find(P=>P.coordinates==player.position.x + ',' + player.position.y) === undefined||map.find(P=>P.coordinates==player.position.x + ',' + player.position.y).level>player.friar.cultivation.stage) {
+                    this.up(player)
+                    return false
+                }
                 return '向南移动'
             },
             '北': () => {
                 this.up(player)
+                if (map.find(P=>P.coordinates==player.position.x + ',' + player.position.y) === undefined||map.find(P=>P.coordinates==player.position.x + ',' + player.position.y).level>player.friar.cultivation.stage) {
+                    this.down(player)
+                    return false
+                }
                 return '向北移动'
             },
         }

@@ -1,5 +1,5 @@
 import { Context } from "koishi";
-import { getPid } from "../utils/method";
+import { areaCommand, getPid } from "../utils/method";
 import { Xian } from "../user/IUser";
 
 
@@ -14,11 +14,18 @@ export function apply(ctx:Context){
         const { userId, channelId } = session
         const pid = getPid(session)
         const players:Array<Xian> = await ctx.database.get('xian', { id: pid })
+        const startTime = new Date()
         if (players.length === 0) {
             await session.execute('register')
             return
         }
         const player = players[0]
+        const {position} = player
+        if (!areaCommand('cultivation',position)||player.status) return `你当前位置没有聚灵阵无法修炼，请回到客栈。\n或者你已经在修炼了`
+        player.startTime = startTime
+        player.status=true
+        await ctx.database.upsert('xian', [player])
+        return `你开始了修炼`
     })
 
 }

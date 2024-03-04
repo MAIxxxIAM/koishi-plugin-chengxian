@@ -145,10 +145,10 @@ export function positionAreas(position: Position) {
     const { x, y } = position
 
     //获取玩家周围的坐标
-    const up = map[`${x},${y + 1}`]
-    const down = map[`${x},${y - 1}`]
-    const left = map[`${x - 1},${y}`]
-    const right = map[`${x + 1},${y}`]
+    const up = map.find(P=>P.coordinates==`${x},${y + 1}`)
+    const down = map.find(P=>P.coordinates==`${x},${y - 1}`)
+    const left = map.find(P=>P.coordinates==`${x - 1},${y}`)
+    const right = map.find(P=>P.coordinates==`${x + 1},${y}`)
 
     //返回周围坐标，有设施则返回设施id，没有则返回undefined
     return {
@@ -157,5 +157,11 @@ export function positionAreas(position: Position) {
         left: left ? left.id : undefined,
         right: right ? right.id : undefined
     }
+}
+
+//
+export function areaCommand(cmd:string, position:Position):boolean{
+    const {x,y} = position
+   return map.find(P=>P.coordinates==`${x},${y}`)?.command.includes(cmd)
 }
 

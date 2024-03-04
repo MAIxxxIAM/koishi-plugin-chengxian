@@ -16,7 +16,8 @@ export function Model(ctx: Context) {
     equip: 'json',
     lingshi: 'unsigned',
     position: 'json',
-    startTime: 'timestamp'
+    startTime: 'timestamp',
+    status: 'boolean'
   }, {
     primary: 'id'
   })

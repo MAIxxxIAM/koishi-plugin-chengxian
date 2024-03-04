@@ -2,6 +2,8 @@ import { Context, Dict, Schema } from 'koishi'
 
 import * as test from './test'
 
+import * as cultivation from './cultivation'
+
 //model文件中定义了数据库表
 import { Model } from './model'
 
@@ -62,6 +64,7 @@ export function apply(ctx: Context, config: Config) {
   // 为 koishi 添加新的数据库表
   Model(ctx)
 
+  ctx.plugin(cultivation)
   ctx.plugin(test)
 
   ctx.command('xian', '百炼成仙')
@@ -138,7 +141,7 @@ export function apply(ctx: Context, config: Config) {
 
       } catch {
 
-        return `\u200b\n${content}`
+        return session.platform=='qq'?"\u200b\n":''+`${content.replace('\r', '\n')}`
 
       }
 

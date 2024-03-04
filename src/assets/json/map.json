@@ -1,31 +1,72 @@
-{
-    "0,0": {
+[
+    {
+        "coordinates": "0,0",
         "id": 0,
         "name": "客栈",
-        "level": 0
+        "level": 0,
+        "command": [
+            "cultivation"
+        ]
     },
-    "-1,1": {
+    {
+        "coordinates": "0,1",
         "id": 1,
-        "name": "藏经阁",
-        "level": 0
+        "name": "镇中小道-北",
+        "level": 0,
+        "command": []
     },
-    "1,1": {
+    {
+        "coordinates": "0,-1",
         "id": 2,
-        "name": "坊市",
-        "level": 0
+        "name": "镇中小道-南",
+        "level": 0,
+        "command": []
     },
-    "-1,-1": {
+    {
+        "coordinates": "1,0",
         "id": 3,
-        "name": "炼宝阁",
-        "level": 0
+        "name": "镇中小道-东",
+        "level": 0,
+        "command": []
     },
-    "1,-1": {
+    {
+        "coordinates": "-1,0",
         "id": 4,
-        "name": "斗仙台",
-        "level": 0
+        "name": "镇中小道-西",
+        "level": 0,
+        "command": []
     },
-    "0,-2": {
+    {
+        "coordinates": "-1,1",
         "id": 5,
+        "name": "藏经阁",
+        "level": 0,
+        "command": []
+    },
+    {
+        "coordinates": "1,1",
+        "id": 6,
+        "name": "坊市",
+        "level": 0,
+        "command": []
+    },
+    {
+        "coordinates": "-1,-1",
+        "id": 7,
+        "name": "炼宝阁",
+        "level": 0,
+        "command": []
+    },
+    {
+        "coordinates": "1,-1",
+        "id": 8,
+        "name": "斗仙台",
+        "level": 0,
+        "command": []
+    },
+    {
+        "coordinates": "0,-2",
+        "id": 9,
         "name": "青云山外",
         "level": 0,
         "monsters": {
@@ -33,10 +74,12 @@
             "min": 1
         },
         "herbs": [],
-        "ores": []
+        "ores": [],
+        "command": []
     },
-    "1,-2": {
-        "id": 6,
+    {
+        "coordinates": "1,-2",
+        "id": 10,
         "name": "山外密林1",
         "level": 1,
         "monsters": {
@@ -44,116 +87,137 @@
             "min": 1
         },
         "herbs": [],
-        "ores": []
+        "ores": [],
+        "command": []
     },
-    "1,-3": {
-        "id": 7,
+    {
+        "coordinates": "1,-3",
+        "id": 11,
         "name": "山外密林2",
         "level": 5,
         "monsters": {
             "max": 8,
-            "min":5
+            "min": 5
         },
         "herbs": [],
-        "ores": []
+        "ores": [],
+        "command": []
     },
-    "2,-3": {
-        "id": 8,
+    {
+        "coordinates": "2,-3",
+        "id": 12,
         "name": "寒山道",
         "level": 5,
         "monsters": {
             "max": 8,
-            "min":5
+            "min": 5
         },
         "herbs": [],
-        "ores": []
+        "ores": [],
+        "command": []
     },
-    "2,-4": {
-        "id": 9,
+    {
+        "coordinates": "2,-4",
+        "id": 13,
         "name": "黄枫谷",
         "level": 2,
         "monsters": {
             "max": 12,
-            "min":9
+            "min": 9
         },
         "herbs": [],
-        "ores": []
+        "ores": [],
+        "command": []
     },
-    "1,-4": {
-        "id": 10,
+    {
+        "coordinates": "1,-4",
+        "id": 14,
         "name": "黄枫谷外",
         "level": 2,
         "monsters": {
             "max": 12,
-            "min":9
+            "min": 9
         },
         "herbs": [],
-        "ores": []
+        "ores": [],
+        "command": []
     },
-    "0,-4": {
-        "id": 11,
+    {
+        "coordinates": "0,-4",
+        "id": 15,
         "name": "野猪林",
         "level": 2,
-        "monsters":{
+        "monsters": {
             "max": 16,
-            "min":13
+            "min": 13
         },
         "herbs": [],
-        "ores": []
+        "ores": [],
+        "command": []
     },
-    "-1,-4": {
-        "id": 12,
+    {
+        "coordinates": "-1,-4",
+        "id": 16,
         "name": "炎晶洞",
         "level": 2,
-        "monsters":{
+        "monsters": {
             "max": 17,
-            "min":13
+            "min": 13
         },
         "herbs": [],
-        "ores": []
+        "ores": [],
+        "command": []
     },
-    "-1,-5": {
-        "id": 13,
+    {
+        "coordinates": "-1,-5",
+        "id": 17,
         "name": "映山湖",
         "level": 2,
         "monsters": {
             "max": 17,
-            "min":13
+            "min": 13
         },
         "herbs": [],
-        "ores": []
+        "ores": [],
+        "command": []
     },
-    "-1,-6": {
-        "id": 14,
+    {
+        "coordinates": "-1,-6",
+        "id": 18,
         "name": "隐仙岭",
         "level": 2,
         "monsters": {
             "max": 19,
-            "min":17
+            "min": 17
         },
         "herbs": [],
-        "ores": []
+        "ores": [],
+        "command": []
     },
-    "0,-6": {
-        "id": 15,
+    {
+        "coordinates": "0,-6",
+        "id": 19,
         "name": "南天阙",
         "level": 2,
         "monsters": {
             "max": 19,
-            "min":17
+            "min": 17
         },
         "herbs": [],
-        "ores": []
+        "ores": [],
+        "command": []
     },
-    "1,-6": {
-        "id": 16,
+    {
+        "coordinates": "1,-6",
+        "id": 20,
         "name": "仙门",
         "level": 2,
-        "monsters":{
+        "monsters": {
             "max": 20,
-            "min":19
+            "min": 19
         },
         "herbs": [],
-        "ores": []
+        "ores": [],
+        "command": []
     }
-}
+]
