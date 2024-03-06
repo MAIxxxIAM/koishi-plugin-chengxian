@@ -1,5 +1,6 @@
 import { Elements } from "../pill/IPill";
-import {Friar} from "../user/IUser";
+import { SkillEquip } from "../skill/Skill";
+import {Friar, PlayerStage} from "../user/IUser";
 import { monster, monsterStage } from "../utils/data";
 import { rollAbility } from "../utils/method";
 
@@ -8,11 +9,13 @@ import { rollAbility } from "../utils/method";
 export class Monster{
     id:string
     friar:Friar
-    skillEquip?:number[]
+    skillEquip?:SkillEquip
 
     //怪物五行
     element:Elements
     constructor(maxLevel:number,minLevel:number){
+      this.friar = {} as Friar
+      this.friar.cultivation = {} as PlayerStage
         const animals = [
             '虎', '龙', '鹿', '狐', '狼', '熊', '鹤', '鸠', '鹰', '鼠',
             '鼍', '兕', '鹿', '猿', '猴', '猪', '牛', '马', '羊', '狨'
@@ -28,9 +31,9 @@ export class Monster{
         
         //根据level范围生成随即等级
         this.friar.cultivation.stage = Math.floor(Math.random() * (maxLevel - minLevel + 1) + minLevel)
-
+        console.log((monsterStage.filter(stage=>{ return stage["level"].includes(this.friar.cultivation.stage)}))[0])
         //根据等级确定颜色
-          const {name,Ele} = (monsterStage.filter(stage=>{stage.level.includes(this.friar.cultivation.stage)}))[0]
+          const {name,Ele} = (monsterStage.filter(stage=>{ return stage["level"].includes(this.friar.cultivation.stage)}))[0]
           const color = name
           this.element = Ele
 

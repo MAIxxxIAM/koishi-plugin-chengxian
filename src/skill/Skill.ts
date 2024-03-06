@@ -1,10 +1,11 @@
 export interface Skill {
-    id: string
+    id:string
     name: string
-    target: string
+    target:string
     priority: number
     cd: number
-    buffId: number
+    round: number
+    buffId?: number
     Damage: number
     description?: string
 }

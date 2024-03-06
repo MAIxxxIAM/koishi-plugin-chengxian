@@ -3,6 +3,8 @@ import { Position, Xian } from "../user/IUser";
 import { CreatePill, Pill } from "../pill/IPill";
 import { map, stage } from "../utils/data";
 import { positionAreas } from "../utils/method";
+import { Monster } from "../monster/IMonster";
+import { battler } from "../battle/Ibattle";
 
 
 
@@ -34,11 +36,11 @@ export function apply(ctx:Context){
 
     // ctx.command('test2', '测试').action(async ({ session }) => {
     //     const { userId, channelId } = session
-    //     const player:Xian=(await ctx.database.get('xian', { id: userId+channelId}))[0]
-    //     const pill:Pill =new Pill(player.pill)
-    //     pill.usePill(player)
-    //     player.pill=null
-    //     await ctx.database.upsert('xian',[ player])
-    //     await session.send(`寿元:${player.friar.age} 修为:${stage[player.friar.cultivation.stage].stage}${player.friar.cultivation.qi} 悟性:${player.friar.ability.perception} 肉身:${player.friar.ability.flesh} 法力:${player.friar.ability.magic}`)
+    //     const player: Xian = (await ctx.database.get('xian', { id: userId + channelId }))[0]
+    //     const monster = new Monster(1,0)
+    //     const battle =new battler(player)
+    //     const target = new battler(monster)
+    //     const string = battle.useSkill(target)
+    //     return string
     // })
 }

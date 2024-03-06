@@ -1,12 +1,13 @@
 [
     {
-        "id":0,
-        "name":"exampleSkill",
+        "id":"0",
+        "name":"测试技能",
         "target":"enemy",
         "priority":1,
         "cd":1,
-        "buffId":0,
+        "round":0,
+        "buffId":1,
         "Damage":10,
-        "description":"This is an example skill"
+        "description":"测试技能"
     }
 ]
