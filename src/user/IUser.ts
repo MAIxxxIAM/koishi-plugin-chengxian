@@ -17,10 +17,10 @@ export interface PlayerStage {
 //玩家角色，包括姓名，年龄，修为，能力
 export interface Friar {
     name: string
-    age: number
+    age?: number
     cultivation: PlayerStage
     ability: Ability
-    identity: string
+    identity: string|number
 }
 
 //玩家角色，包括id，角色信息，装备信息

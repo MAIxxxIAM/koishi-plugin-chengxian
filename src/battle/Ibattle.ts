@@ -1,6 +1,7 @@
-import { Skill } from "../skill/Skill";
-import { Ability, PlayerStage, Xian } from "../user/IUser";
-import { buffs, skills } from "../utils/data";
+import { Monster } from "../monster/IMonster"
+import { Skill } from "../skill/Skill"
+import { Ability, PlayerStage, Xian } from "../user/IUser"
+import { buffs, skills } from "../utils/data"
 
 
 //定义一个buff接口，包括名字，持续时间，效果
@@ -17,12 +18,12 @@ export class battler {
     name: string
     cultivation: PlayerStage
     ability: Ability
-    identity: string
+    identity: string|number
     buff?: Buff[]
     skillEquip?: Array<Skill>
 
     //传入一个玩家对象，生成对战者类型
-    constructor(player: Xian) {
+    constructor(player: Xian|Monster) {
         this.id = player.id
         this.name = player.friar.name
         this.cultivation = player.friar.cultivation
