@@ -1,0 +1,9 @@
+[
+    {
+        "id": 0,
+        "name": "健体",
+        "ability": "flesh",
+        "duration":3,
+        "value": 10
+    }
+]

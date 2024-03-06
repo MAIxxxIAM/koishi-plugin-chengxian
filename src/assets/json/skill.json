@@ -1,0 +1,12 @@
+[
+    {
+        "id":0,
+        "name":"exampleSkill",
+        "target":"enemy",
+        "priority":1,
+        "cd":1,
+        "buffId":0,
+        "Damage":10,
+        "description":"This is an example skill"
+    }
+]

@@ -17,6 +17,7 @@ export function Model(ctx: Context) {
     lingshi: 'unsigned',
     position: 'json',
     startTime: 'timestamp',
+    skillEquip: 'list',
     status: 'boolean'
   }, {
     primary: 'id'

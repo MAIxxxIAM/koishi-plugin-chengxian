@@ -10,7 +10,8 @@ import { positionAreas } from "../utils/method";
 export function apply(ctx:Context){
 
 
-/*
+/* 
+    //移动测试
     ctx.command('test1 <pMove>', '移动测试').action(async ({ session },pMove:"东" | "西" | "南" | "北") => {
         const { userId, channelId } = session
       const player:Xian=(await ctx.database.get('xian', { id: userId+channelId}))[0]
@@ -23,7 +24,7 @@ export function apply(ctx:Context){
       const strArea=(up!==undefined?`北部：${map.find(P=>P.id==up).name}\n`:'')+(down!==undefined?`南部：${map.find(P=>P.id==down).name}\n`:'')+(left!==undefined?`西部：${map.find(P=>P.id==left).name}\n`:'')+(right!==undefined?`东部：${map.find(P=>P.id==right).name}\n`:'')
       await session.send(player.friar.name+str+"\n当前位置:"+map.find(P=>P.coordinates==player.position.x+","+player.position.y).name+"\n"+strArea)
 
-*/
+ */
 
 
 

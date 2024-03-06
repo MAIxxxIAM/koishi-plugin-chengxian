@@ -1,5 +1,6 @@
 import { Item } from "../item/Iitem"
 import { Pill } from "../pill/IPill"
+import { SkillEquip } from "../skill/Skill"
 import { map } from "../utils/data"
 
 //装备 武器和防具
@@ -30,6 +31,7 @@ export interface Xian {
     lingshi: number
     position?: Position
     startTime?: Date
+    skillEquip?: SkillEquip
     status?:boolean
 }
 
