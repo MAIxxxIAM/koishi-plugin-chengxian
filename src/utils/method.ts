@@ -1,4 +1,4 @@
-import { Context, Session } from "koishi"
+import { Context, Session, is } from "koishi"
 import { Ability, Friar, Position, Xian } from "../user/IUser"
 import { identity, map } from "./data"
 import { Config } from ".."
@@ -36,7 +36,8 @@ export function createNewPlayer(session: Session<never, never, Context>, name: s
         id,
         friar,
         lingshi: identityRandom.lingshi,
-        position: new Position({x:0, y:0})
+        position: new Position({x:0, y:0,dx:0,dy:0}),
+        isDungeon:false
     }
     return xian
 }
@@ -139,16 +140,18 @@ export function getQi(culTime: number, player: Xian) {
     }
 }
 
-export function positionAreas(position: Position) {
+export async function positionAreas(ctx:Context,player:Xian) {
 
     //获取玩家坐标
-    const { x, y } = position
-
+    let { x, y,dx,dy } = player.position
+    const isDungeon=player.isDungeon
+    isDungeon?(x=dx,y=dy):null
+    const maps=isDungeon?(await ctx.database.get('dungeons', { id: player.id}))[0].dungeons.map:map
     //获取玩家周围的坐标
-    const up = map.find(P=>P.coordinates==`${x},${y + 1}`)
-    const down = map.find(P=>P.coordinates==`${x},${y - 1}`)
-    const left = map.find(P=>P.coordinates==`${x - 1},${y}`)
-    const right = map.find(P=>P.coordinates==`${x + 1},${y}`)
+    const up = maps.find(P=>P.coordinates==`${x},${y + 1}`)
+    const down = maps.find(P=>P.coordinates==`${x},${y - 1}`)
+    const left = maps.find(P=>P.coordinates==`${x - 1},${y}`)
+    const right = maps.find(P=>P.coordinates==`${x + 1},${y}`)
 
     //返回周围坐标，有设施则返回设施id，没有则返回undefined
     return {

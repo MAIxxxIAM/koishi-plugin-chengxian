@@ -1,7 +1,9 @@
+import { Context, is } from "koishi"
 import { Item } from "../item/Iitem"
 import { Pill } from "../pill/IPill"
 import { SkillEquip } from "../skill/Skill"
 import { map } from "../utils/data"
+import { Dungeon, Dungeons } from "../dungeon/Idungeon"
 
 //装备 武器和防具
 export interface Equip {
@@ -33,6 +35,7 @@ export interface Xian {
     startTime?: Date
     skillEquip?: SkillEquip
     status?:boolean
+    isDungeon:boolean
 }
 
 //能力，包括感知，肉身，法力
@@ -46,59 +49,91 @@ export interface Ability {
 export class Position {
     x: number
     y: number
-    constructor(position: { x: number, y: number }) {
+    dx: number
+    dy: number
+    constructor(position: { x: number, y: number, dx: number, dy: number}) {
         this.x = position.x
         this.y = position.y
+        this.dx = position.dx
+        this.dy = position.dy
     }
 
-    private right(player: Xian) {
-        player.position.x++
+    private right(player: Xian,isDungeon:boolean) {
+        !isDungeon?player.position.x++:player.position.dx++
     }
-    private left(player: Xian) {
-        player.position.x--
+    private left(player: Xian,isDungeon:boolean) {
+        !isDungeon?player.position.x--:player.position.dx--
     }
-    private up(player: Xian) {
-        player.position.y++
+    private up(player: Xian,isDungeon:boolean) {
+        !isDungeon?player.position.y++:player.position.dy++
     }
-    private down(player: Xian) {
-        player.position.y--
+    private down(player: Xian,isDungeon:boolean) {
+        !isDungeon?player.position.y--:player.position.dy--
     }
-    move(direction: '东' | '西' | '南' | '北', player: Xian) {
+    async move(direction: '东' | '西' | '南' | '北', player: Xian,ctx:Context) {
+        const isDungeon=player.isDungeon
+       const maps= isDungeon?(await ctx.database.get('dungeons', { id: player.id}))[0].dungeons.map:map
+        if (isDungeon) {
+
+        }
         const directionMap = {
             '东': () => {
-                this.right(player)
-                if (map.find(P=>P.coordinates==player.position.x + ',' + player.position.y) === undefined||map.find(P=>P.coordinates==player.position.x + ',' + player.position.y).level>player.friar.cultivation.stage) {
-                    this.left(player)
+                this.right(player,isDungeon)
+                if (maps.find(P=>P.coordinates==(isDungeon?player.position.dx:player.position.x) + ',' + (isDungeon?player.position.dy:player.position.y)) === undefined||maps.find(P=>P.coordinates==(isDungeon?player.position.dx:player.position.x) + ',' + (isDungeon?player.position.dy:player.position.y)).level>player.friar.cultivation.stage) {
+                    this.left(player,isDungeon)
                     return false
                 }
                 return '向东移动'
             },
             '西': () => {
-                this.left(player)
-                if (map.find(P=>P.coordinates==player.position.x + ',' + player.position.y) === undefined||map.find(P=>P.coordinates==player.position.x + ',' + player.position.y).level>player.friar.cultivation.stage) {
-                    this.right(player)
+                this.left(player,isDungeon)
+                if (maps.find(P=>P.coordinates==(isDungeon?player.position.dx:player.position.x) + ',' + (isDungeon?player.position.dy:player.position.y)) === undefined||maps.find(P=>P.coordinates==(isDungeon?player.position.dx:player.position.x) + ',' + (isDungeon?player.position.dy:player.position.y)).level>player.friar.cultivation.stage) {
+                    this.right(player,isDungeon)
                     return false
                 }
                 return '向西移动'
             },
             '南': () => {
-                this.down(player)
-                if (map.find(P=>P.coordinates==player.position.x + ',' + player.position.y) === undefined||map.find(P=>P.coordinates==player.position.x + ',' + player.position.y).level>player.friar.cultivation.stage) {
-                    this.up(player)
+                this.down(player,isDungeon)
+                if (maps.find(P=>P.coordinates==(isDungeon?player.position.dx:player.position.x) + ',' + (isDungeon?player.position.dy:player.position.y)) === undefined||maps.find(P=>P.coordinates==(isDungeon?player.position.dx:player.position.x) + ',' + (isDungeon?player.position.dy:player.position.y)).level>player.friar.cultivation.stage) {
+                    this.up(player,isDungeon)
                     return false
                 }
                 return '向南移动'
             },
             '北': () => {
-                this.up(player)
-                if (map.find(P=>P.coordinates==player.position.x + ',' + player.position.y) === undefined||map.find(P=>P.coordinates==player.position.x + ',' + player.position.y).level>player.friar.cultivation.stage) {
-                    this.down(player)
+                this.up(player,isDungeon)
+                if (maps.find(P=>P.coordinates==(isDungeon?player.position.dx:player.position.x) + ',' + (isDungeon?player.position.dy:player.position.y)) === undefined||maps.find(P=>P.coordinates==(isDungeon?player.position.dx:player.position.x) + ',' + (isDungeon?player.position.dy:player.position.y)).level>player.friar.cultivation.stage) {
+                    this.down(player,isDungeon)
                     return false
                 }
                 return '向北移动'
             },
         }
         return directionMap[direction]()
+    }
+    async toDungeon(player:Xian,ctx:Context){
+        const inMap= new Position(player.position)
+        let dungeon:Dungeon
+        player.position.dx=0
+        player.position.dy=0
+        player.isDungeon=true
+        const dungeonArray:Dungeons[]=(await ctx.database.get('dungeons', { id: player.id}))
+        dungeon =dungeonArray.length==0? new Dungeon(inMap):dungeonArray[0].dungeons
+        await ctx.database.upsert('xian',[player])
+        await ctx.database.upsert('dungeons',[{
+            id:player.id,
+            dungeons:dungeon
+        }])
+        return[ `进入了秘境\n`,dungeon.map]
+    }
+    async outDungeon(player:Xian,ctx:Context){
+        player.position.dx=0
+        player.position.dy=0
+        player.isDungeon=false
+        await ctx.database.upsert('xian',[player])
+        await ctx.database.remove('dungeons', { id: player.id})
+        return `你离开了秘境`
     }
 }
 
