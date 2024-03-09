@@ -35,6 +35,7 @@ export interface Config {
   key9: string
   key10: string
 }
+export let mainConfig: Config
 
 export const Config: Schema<Schemastery.ObjectS<{}>, {} & Dict> = Schema.intersect([
   Schema.object({
@@ -60,6 +61,8 @@ export const Config: Schema<Schemastery.ObjectS<{}>, {} & Dict> = Schema.interse
 ])
 
 export function apply(ctx: Context, config: Config) {
+
+  mainConfig = config
 
   // 为 koishi 添加新的数据库表
   Model(ctx)
@@ -132,7 +135,7 @@ export function apply(ctx: Context, config: Config) {
             msg_type: 2,
             markdown: {
               custom_template_id: config.markdownId,
-              params: md(config, mdContent, session)
+              params: md(mdContent)
             },
             msg_id: session.messageId,
             timestamp: session.timestamp,

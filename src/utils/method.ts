@@ -1,7 +1,7 @@
 import { Context, Session, is } from "koishi"
 import { Ability, Friar, Position, Xian } from "../user/IUser"
 import { identity, map } from "./data"
-import { Config } from ".."
+import { mainConfig } from ".."
 
 
 //获取组合id
@@ -75,9 +75,9 @@ export function rollAbility({ perception, flesh, magic }): Ability {
 }
 
 //markdown模板
-export function md(config: Config, content: string[], session: Session<never, never, Context>) {
+export function md(content: string[]) {
     //config配置对象转为数组
-    const keys = [config.key1, config.key2, config.key3, config.key4, config.key5, config.key6, config.key7, config.key8, config.key9, config.key10]
+    const keys = [mainConfig.key1,mainConfig.key2, mainConfig.key3, mainConfig.key4, mainConfig.key5, mainConfig.key6, mainConfig.key7, mainConfig.key8, mainConfig.key9, mainConfig.key10]
 
     //根据config配置对象，生成markdown数据
     const data = keys.map((key, index) => {
@@ -85,7 +85,7 @@ export function md(config: Config, content: string[], session: Session<never, ne
             key: key,
             values: [content[index]]
         }
-    }).filter(item => item.values[0] !== undefined)//过滤掉undefined的数据
+    }).filter(item => item.values[0] !== undefined&&item.values[0] !=="")//过滤掉undefined的数据
 
     //返回markdown数据
     return data
@@ -110,6 +110,17 @@ export function button(按钮类型: number, 权限: number, 按钮文字: strin
             "data": 数据,
             "enter": enter //是否点击发送消息，默认为true
         },
+    }
+}
+
+export function kbbtn (a:string[],session:Session<never, never, Context>){
+    return {
+        "rows": [
+           {"buttons":[button(2,0,a[0]?a[0]:" ",a[0]?"/"+a[0]:" ",session.userId,"左上",a[0]?true:false),button(2,0,"↑","/move 北",session.userId,"上"),button(2,0,a[1]?a[1]:" ",a[1]?"/"+a[1]:" ",session.userId,"左上",a[1]?true:false)]},
+           {"buttons":[button(2,0,"←","/move 西",session.userId,"左"),button(2,0,"信息","/selfInfo",session.userId,"中"),button(2,0,"→","/move 东",session.userId,"右")]},
+           {"buttons":[button(2,0,a[2]?a[2]:" ",a[2]?"/"+a[2]:" ",session.userId,"左上",a[2]?true:false),button(2,0,"↓","/move 南",session.userId,"下"),button(2,0,a[3]?a[3]:" ",a[3]?"/"+a[3]:" ",session.userId,"左上",a[3]?true:false)]}
+        ]
+      
     }
 }
 

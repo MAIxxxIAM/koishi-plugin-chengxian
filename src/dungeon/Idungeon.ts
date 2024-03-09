@@ -1,4 +1,5 @@
 import {Map } from '../map/map'
+import { Monster } from '../monster/IMonster'
 import { Position } from '../user/IUser'
 import { dungeon, map } from '../utils/data'
 
@@ -12,7 +13,7 @@ export class Dungeon {
 
     constructor(position:Position){
         const inMap=map.find(P=>P.coordinates==position.x+","+position.y)
-        const DungeonId:number=inMap.id-9
+        const DungeonId:number=(inMap.id-9)%dungeon.length
         const DungeonNameList:string[] = dungeon[DungeonId].nameList
         let visited: boolean[] = []
         let maps:Map[]=[]
@@ -22,8 +23,15 @@ export class Dungeon {
             let coordinates = `${x},${y}`
             let name = DungeonNameList[Math.floor(Math.random() * DungeonNameList.length)]
             let level = inMap.level
-            const command = ["移动","遭遇","采集","我的信息"]
-            maps.push({ coordinates, id, name, level,command})
+            const command = ["遭遇","采集","出秘境"]
+            const monsters={
+                monsters:[],
+            }
+            const monstersNumber = Math.floor(Math.random() * 3)+1
+            for(let i=0;i<monstersNumber;i++){
+                monsters.monsters.push(new Monster(level+1,level))
+            }
+            maps.push({ coordinates, id, name, level,monsters,command})
             visited[id] = true
             let directions = [0, 1, 2, 3]
             for (let i = 3; i > 0; i--) {

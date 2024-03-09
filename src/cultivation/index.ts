@@ -21,7 +21,7 @@ export function apply(ctx:Context){
         }
         const player = players[0]
         const {position} = player
-        if (!areaCommand('cultivation',position)||player.status) return `你当前位置没有聚灵阵无法修炼，请回到客栈。\n或者你已经在修炼了`
+        if (!areaCommand('修炼',position)||player.status) return `你当前位置没有聚灵阵无法修炼，请回到客栈。\n或者你已经在修炼了`
         player.startTime = startTime
         player.status=true
         await ctx.database.upsert('xian', [player])
