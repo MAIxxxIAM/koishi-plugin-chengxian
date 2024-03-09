@@ -2,6 +2,7 @@ import { Context, Session, is } from "koishi"
 import { Ability, Friar, Position, Xian } from "../user/IUser"
 import { identity, map } from "./data"
 import { mainConfig } from ".."
+import { Map } from "../map/map"
 
 
 //获取组合id
@@ -177,5 +178,36 @@ export async function positionAreas(ctx:Context,player:Xian) {
 export function areaCommand(cmd:string, position:Position):boolean{
     const {x,y} = position
    return map.find(P=>P.coordinates==`${x},${y}`)?.command.includes(cmd)
+}
+
+export async function getNowPosition(ctx:Context,player:Xian,maps:Map[]){
+    const areas = await positionAreas(ctx, player)
+    const { up, down, left, right } = areas
+    const x = (player.isDungeon ? player.position.dx : player.position.x)
+    const y = (player.isDungeon ? player.position.dy : player.position.y)
+    const thisPosition = maps.find(P => P.coordinates == x + "," + y)?.name
+    const thisCommand = maps.find(P => P.coordinates == x + "," + y).command.join("\n")
+    const strArea = player.friar.name + "  当前位置：" + thisPosition + "\n" + (up !== undefined ? `北部：${maps.find(P => P.id == up).name}\n` : '') + (down !== undefined ? `南部：${maps.find(P => P.id == down).name}\n` : '') + (left !== undefined ? `西部：${maps.find(P => P.id == left).name}\n` : '') + (right !== undefined ? `东部：${maps.find(P => P.id == right).name}\n` : '')
+    return {strArea,thisCommand}
+
+}
+
+export async function sendMarkdornMessage(session:Session<never, never, Context>,strArea:string,thisCommand:string){
+    const mdStr = strArea.split('\n')
+    const mdCommand = thisCommand.split("\n")
+    await session.bot.internal.sendMessage(session.channelId, {
+        content: "111",
+        msg_type: 2,
+        markdown: {
+            custom_template_id: mainConfig.markdownId,
+            params: md(mdStr)
+        },
+        keyboard: {
+            content: kbbtn(mdCommand, session),
+        },
+        msg_id: session.messageId,
+        timestamp: session.timestamp,
+        msg_seq: Math.floor(Math.random() * 1000000),
+    })
 }
 
