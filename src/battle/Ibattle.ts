@@ -19,12 +19,12 @@ export class battler {
     name: string
     cultivation: PlayerStage
     ability: Ability
-    identity: string|number
+    identity: string | number
     buff?: Buff[]
     skillEquip?: Array<Skill>
 
     //传入一个玩家对象，生成对战者类型
-    constructor(player: Xian|Monster) {
+    constructor(player: Xian | Monster) {
         this.id = player.id
         this.name = player.friar.name
         this.cultivation = player.friar.cultivation
@@ -33,12 +33,12 @@ export class battler {
         let skillA: Skill[] = []
         //如果玩家有装备技能，将技能id实例化
         if (player.skillEquip) {
-            
+
             for (let i = 0; i < 4; i++) {
                 skillA[i] = skills[Number(player.skillEquip[i])]
             }
             this.skillEquip = skillA
-        }else{
+        } else {
             for (let i = 0; i < 4; i++) {
                 skillA[i] = skills[0]
             }
@@ -61,12 +61,12 @@ export class battler {
             this.buff.push(buff)
         }
         this.ability[aBuff.ability] += aBuff.value
-        return `${this.name}出现了${aBuff.name},${aBuff.value>0?'增加了':'失去了'}${Math.abs(aBuff.value)}点${commandI18n[aBuff.ability]}，持续${aBuff.duration}回合`
+        return `${this.name}出现了${aBuff.name},${aBuff.value > 0 ? '增加了' : '失去了'}${Math.abs(aBuff.value)}点${commandI18n[aBuff.ability]}，持续${aBuff.duration}回合`
     }
 
     //每回合更新buff，将buff的持续时间减一，如果为0则删除
     updateBuff() {
-        if (!this.buff){
+        if (!this.buff) {
             return
         }
         this.buff.forEach(B => {
@@ -81,7 +81,7 @@ export class battler {
     useSkill(target: battler) {
         this.updateBuff()
         this.skillEquip.forEach(S => {
-            if (S?.round > 0) { S   .round -- }
+            if (S?.round > 0) { S.round-- }
         })
         let battleStr: string = ''
         let buffStr: string = ''
@@ -91,17 +91,17 @@ export class battler {
         }
         switch (readySkill.target) {
             case 'self':
-                buffStr= this.addBuff(readySkill.buffId)
-                battleStr= `${this.name}使用了${readySkill.name},${buffStr}`
+                buffStr = this.addBuff(readySkill.buffId)
+                battleStr = `${this.name}使用了${readySkill.name},${buffStr}`
                 break
             case 'enemy':
-                let damage: number=0
+                let damage: number = 0
                 /* 
                 伤害计算,并且计算伤害效果
                 */
-                const damageStr= `${this.name}使用了${readySkill.name},对${target.name}造成了${damage}点伤害`
-                buffStr= target.addBuff(readySkill.buffId)
-                battleStr= `${damageStr}，${buffStr}`
+                const damageStr = `${this.name}使用了${readySkill.name},对${target.name}造成了${damage}点伤害`
+                buffStr = target.addBuff(readySkill.buffId)
+                battleStr = `${damageStr}，${buffStr}`
 
         }
         this.skillEquip.forEach(S => {
@@ -110,5 +110,5 @@ export class battler {
             }
         })
         return battleStr
-}
+    }
 }

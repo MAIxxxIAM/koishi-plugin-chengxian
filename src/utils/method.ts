@@ -148,7 +148,7 @@ export function getQi(culTime: number, player: Xian) {
     const x: number = identity[player.friar.identity].ability.perception
 
     //通过时间差计算修炼获得的经验
-    let qi = Math.floor(culTime / 1000 * perception / ((200 - x * 6)*2))
+    let qi = Math.floor(culTime / 1000 * perception / ((200 - x * 6) * 2))
 
     //通过时间差计算修炼花费的灵石.一颗灵石折算10点气
     let spendLingshi = Math.ceil((qi / 10) < 1 ? 1 : (qi / 10))
@@ -189,13 +189,13 @@ export async function positionAreas(ctx: Context, player: Xian) {
 }
 
 //
-export async function areaCommand(cmd: string, player:Xian,ctx): Promise<boolean> {
+export async function areaCommand(cmd: string, player: Xian, ctx): Promise<boolean> {
     let maps: Map[]
     //判断是否在副本
-    player.isDungeon ? maps = (await ctx.database.get('dungeons', { id:player.id }))[0].dungeons.map : maps = map
-    const { x, y ,dx,dy} =  player.position
-    const ix = ( player.isDungeon ? dx : x)
-    const iy = ( player.isDungeon ? dy : y)
+    player.isDungeon ? maps = (await ctx.database.get('dungeons', { id: player.id }))[0].dungeons.map : maps = map
+    const { x, y, dx, dy } = player.position
+    const ix = (player.isDungeon ? dx : x)
+    const iy = (player.isDungeon ? dy : y)
     return maps.find(P => P.coordinates == `${ix},${iy}`)?.command.includes(cmd)
 }
 
@@ -205,7 +205,7 @@ export async function getNowPosition(ctx: Context, player: Xian) {
     let maps: Map[]
 
     //判断是否在副本
-    player.isDungeon ? maps = (await ctx.database.get('dungeons', { id:player.id }))[0].dungeons.map : maps = map
+    player.isDungeon ? maps = (await ctx.database.get('dungeons', { id: player.id }))[0].dungeons.map : maps = map
     const areas = await positionAreas(ctx, player)
     const { up, down, left, right } = areas
     const x = (player.isDungeon ? player.position.dx : player.position.x)

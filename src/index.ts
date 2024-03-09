@@ -99,7 +99,7 @@ export function apply(ctx: Context, config: Config) {
           await session.send('输入2-6个汉字的名字进行注册')
           const name = await session.prompt(20000)
           if (!name) return
-          await session.execute('register '+name)
+          await session.execute('register ' + name)
           return
         }
       }
@@ -126,7 +126,7 @@ export function apply(ctx: Context, config: Config) {
 
         //md消息第一行@用户
         mdContent[0] = `\r#\t<@${session.userId}>` + mdContent[0]
-        mdContent[mdContent.length-1] =`法力：${player.friar.ability.magic}\r\r>\ttips:身份只影响加成属性，实际面板由ROLL点+身份加成`
+        mdContent[mdContent.length - 1] = `法力：${player.friar.ability.magic}\r\r>\ttips:身份只影响加成属性，实际面板由ROLL点+身份加成`
 
         /*
         qq内部接口参数是（群号，数据）
@@ -145,12 +145,12 @@ export function apply(ctx: Context, config: Config) {
             timestamp: session.timestamp,
             msg_seq: Math.floor(Math.random() * 1000000),
           }) */
-          const { strArea,thisCommand }=await getNowPosition(ctx,player)
-          await sendMarkdornMessage(session,mdContent.join('\n')+`\t\t\r> ${strArea}`,thisCommand)
+        const { strArea, thisCommand } = await getNowPosition(ctx, player)
+        await sendMarkdornMessage(session, mdContent.join('\n') + `\t\t\r> ${strArea}`, thisCommand)
 
       } catch {
 
-        return session.platform=='qq'?"\u200b\n":''+`${content.replace('\r', '\n')}`
+        return session.platform == 'qq' ? "\u200b\n" : '' + `${content.replace('\r', '\n')}`
 
       }
 
