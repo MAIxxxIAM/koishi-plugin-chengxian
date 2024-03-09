@@ -23,7 +23,7 @@ export class Dungeon {
             let coordinates = `${x},${y}`
             let name = DungeonNameList[Math.floor(Math.random() * DungeonNameList.length)]
             let level = inMap.level
-            const command = ["遭遇","采集","出秘境"]
+            const command = ["遭遇","采集","toDungeon"]
             const monsters={
                 monsters:[],
             }

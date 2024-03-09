@@ -8,13 +8,13 @@ import * as cultivation from './cultivation'
 import { Model } from './model'
 
 //method文件中写所有的方法
-import { button, createNewPlayer, getPid, md } from './utils/method'
+import { button, createNewPlayer, getNowPosition, getPid, md, sendMarkdornMessage } from './utils/method'
 
 //user文件定义玩家角色的数据结构
 import { Xian } from './user/IUser'
 
 //data文件导入了一些静态数据,json或者图片等
-import { identity } from './utils/data'
+import { identity, map } from './utils/data'
 
 export const name = 'chengxian'
 
@@ -96,7 +96,11 @@ export function apply(ctx: Context, config: Config) {
           })
           return
         } catch (e) {
-          return '输入一个2-6个汉字的名字进行注册'
+          await session.send('输入2-6个汉字的名字进行注册')
+          const name = await session.prompt(20000)
+          if (!name) return
+          await session.execute('register '+name)
+          return
         }
       }
 
@@ -129,7 +133,7 @@ export function apply(ctx: Context, config: Config) {
         数据方法接受3个参数，第一个是配置项，第二个是文本内容，第三个是session参数
         文本内容是一个数组，并且不能有\n等换行符号，最多10个元素
         */
-        await session.bot.internal.sendMessage(session.channelId,
+        /* await session.bot.internal.sendMessage(session.channelId,
           {
             content: "222",
             msg_type: 2,
@@ -140,7 +144,9 @@ export function apply(ctx: Context, config: Config) {
             msg_id: session.messageId,
             timestamp: session.timestamp,
             msg_seq: Math.floor(Math.random() * 1000000),
-          })
+          }) */
+          const { strArea,thisCommand }=await getNowPosition(ctx,player)
+          await sendMarkdornMessage(session,mdContent.join('\n')+`\t\t\r> ${strArea}`,thisCommand)
 
       } catch {
 

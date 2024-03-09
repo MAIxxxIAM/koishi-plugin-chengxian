@@ -31,7 +31,6 @@ export class Monster{
         
         //根据level范围生成随即等级
         this.friar.cultivation.stage = Math.floor(Math.random() * (maxLevel - minLevel + 1) + minLevel)
-        console.log((monsterStage.filter(stage=>{ return stage["level"].includes(this.friar.cultivation.stage)}))[0])
         //根据等级确定颜色
           const {name,Ele} = (monsterStage.filter(stage=>{ return stage["level"].includes(this.friar.cultivation.stage)}))[0]
           const color = name

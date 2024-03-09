@@ -15,3 +15,4 @@ export const map = Maps as Map[]
 export const buffs = Buff
 export const skills = Skills as Skill[]
 export const dungeon = Dungeon
+

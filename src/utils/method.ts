@@ -6,6 +6,19 @@ import { Map } from "../map/map"
 
 
 //获取组合id
+
+export const commandI18n = {
+    "toDungeon": "秘境",
+    "cultivation": "修炼",
+    "selfInfo": "信息",
+    "move": "移动",
+    "flesh": "肉身",
+    "magic": "法力",
+    "perception": "悟性",
+    "遭遇": "遭遇",
+    "采集": "采集",
+}
+
 export function getPid(session: Session<never, never, Context>): string {
     const { userId, channelId } = session
     const pid = userId + channelId
@@ -37,8 +50,8 @@ export function createNewPlayer(session: Session<never, never, Context>, name: s
         id,
         friar,
         lingshi: identityRandom.lingshi,
-        position: new Position({x:0, y:0,dx:0,dy:0}),
-        isDungeon:false
+        position: new Position({ x: 0, y: 0, dx: 0, dy: 0 }),
+        isDungeon: false
     }
     return xian
 }
@@ -78,7 +91,7 @@ export function rollAbility({ perception, flesh, magic }): Ability {
 //markdown模板
 export function md(content: string[]) {
     //config配置对象转为数组
-    const keys = [mainConfig.key1,mainConfig.key2, mainConfig.key3, mainConfig.key4, mainConfig.key5, mainConfig.key6, mainConfig.key7, mainConfig.key8, mainConfig.key9, mainConfig.key10]
+    const keys = [mainConfig.key1, mainConfig.key2, mainConfig.key3, mainConfig.key4, mainConfig.key5, mainConfig.key6, mainConfig.key7, mainConfig.key8, mainConfig.key9, mainConfig.key10]
 
     //根据config配置对象，生成markdown数据
     const data = keys.map((key, index) => {
@@ -86,7 +99,7 @@ export function md(content: string[]) {
             key: key,
             values: [content[index]]
         }
-    }).filter(item => item.values[0] !== undefined&&item.values[0] !=="")//过滤掉undefined的数据
+    }).filter(item => item.values[0] !== undefined && item.values[0] !== "")//过滤掉undefined的数据
 
     //返回markdown数据
     return data
@@ -114,16 +127,17 @@ export function button(按钮类型: number, 权限: number, 按钮文字: strin
     }
 }
 
-export function kbbtn (a:string[],session:Session<never, never, Context>){
+export function kbbtn(a: string[], session: Session<never, never, Context>) {
     return {
         "rows": [
-           {"buttons":[button(2,0,a[0]?a[0]:" ",a[0]?"/"+a[0]:" ",session.userId,"左上",a[0]?true:false),button(2,0,"↑","/move 北",session.userId,"上"),button(2,0,a[1]?a[1]:" ",a[1]?"/"+a[1]:" ",session.userId,"左上",a[1]?true:false)]},
-           {"buttons":[button(2,0,"←","/move 西",session.userId,"左"),button(2,0,"信息","/selfInfo",session.userId,"中"),button(2,0,"→","/move 东",session.userId,"右")]},
-           {"buttons":[button(2,0,a[2]?a[2]:" ",a[2]?"/"+a[2]:" ",session.userId,"左上",a[2]?true:false),button(2,0,"↓","/move 南",session.userId,"下"),button(2,0,a[3]?a[3]:" ",a[3]?"/"+a[3]:" ",session.userId,"左上",a[3]?true:false)]}
+            { "buttons": [button(2, 0, a[0] ? a[0] : " ", a[0] ? "/" + a[0] : " ", session.userId, "左上", a[0] ? true : false), button(2, 0, "↑", "/move 北", session.userId, "上"), button(2, 0, a[1] ? a[1] : " ", a[1] ? "/" + a[1] : " ", session.userId, "左上", a[1] ? true : false)] },
+            { "buttons": [button(2, 0, "←", "/move 西", session.userId, "左"), button(2, 0, "信息", "/selfInfo", session.userId, "中"), button(2, 0, "→", "/move 东", session.userId, "右")] },
+            { "buttons": [button(2, 0, a[2] ? a[2] : " ", a[2] ? "/" + a[2] : " ", session.userId, "左上", a[2] ? true : false), button(2, 0, "↓", "/move 南", session.userId, "下"), button(2, 0, a[3] ? a[3] : " ", a[3] ? "/" + a[3] : " ", session.userId, "左上", a[3] ? true : false)] }
         ]
-      
+
     }
 }
+
 
 export function getQi(culTime: number, player: Xian) {
 
@@ -134,36 +148,36 @@ export function getQi(culTime: number, player: Xian) {
     const x: number = identity[player.friar.identity].ability.perception
 
     //通过时间差计算修炼获得的经验
-    let getQi = culTime/ (1000 * 60) * perception / (200 - x * 6)
+    let qi = Math.floor(culTime / 1000 * perception / ((200 - x * 6)*2))
 
     //通过时间差计算修炼花费的灵石.一颗灵石折算10点气
-    let spendLingshi = Math.ceil(getQi / 10)
+    let spendLingshi = Math.ceil((qi / 10) < 1 ? 1 : (qi / 10))
 
     if (spendLingshi > player.lingshi) {
         spendLingshi = player.lingshi
-        getQi = spendLingshi * 10
+        qi = spendLingshi * 10
     }
     player.lingshi -= spendLingshi
-    player.friar.cultivation.qi += getQi
+    player.friar.cultivation.qi += qi
 
     return {
-        getQi,
+        qi,
         spendLingshi
     }
 }
 
-export async function positionAreas(ctx:Context,player:Xian) {
+export async function positionAreas(ctx: Context, player: Xian) {
 
     //获取玩家坐标
-    let { x, y,dx,dy } = player.position
-    const isDungeon=player.isDungeon
-    isDungeon?(x=dx,y=dy):null
-    const maps=isDungeon?(await ctx.database.get('dungeons', { id: player.id}))[0].dungeons.map:map
+    let { x, y, dx, dy } = player.position
+    const isDungeon = player.isDungeon
+    isDungeon ? (x = dx, y = dy) : null
+    const maps = isDungeon ? (await ctx.database.get('dungeons', { id: player.id }))[0].dungeons.map : map
     //获取玩家周围的坐标
-    const up = maps.find(P=>P.coordinates==`${x},${y + 1}`)
-    const down = maps.find(P=>P.coordinates==`${x},${y - 1}`)
-    const left = maps.find(P=>P.coordinates==`${x - 1},${y}`)
-    const right = maps.find(P=>P.coordinates==`${x + 1},${y}`)
+    const up = maps.find(P => P.coordinates == `${x},${y + 1}`)
+    const down = maps.find(P => P.coordinates == `${x},${y - 1}`)
+    const left = maps.find(P => P.coordinates == `${x - 1},${y}`)
+    const right = maps.find(P => P.coordinates == `${x + 1},${y}`)
 
     //返回周围坐标，有设施则返回设施id，没有则返回undefined
     return {
@@ -175,24 +189,37 @@ export async function positionAreas(ctx:Context,player:Xian) {
 }
 
 //
-export function areaCommand(cmd:string, position:Position):boolean{
-    const {x,y} = position
-   return map.find(P=>P.coordinates==`${x},${y}`)?.command.includes(cmd)
+export async function areaCommand(cmd: string, player:Xian,ctx): Promise<boolean> {
+    let maps: Map[]
+    //判断是否在副本
+    player.isDungeon ? maps = (await ctx.database.get('dungeons', { id:player.id }))[0].dungeons.map : maps = map
+    const { x, y ,dx,dy} =  player.position
+    const ix = ( player.isDungeon ? dx : x)
+    const iy = ( player.isDungeon ? dy : y)
+    return maps.find(P => P.coordinates == `${ix},${iy}`)?.command.includes(cmd)
 }
 
-export async function getNowPosition(ctx:Context,player:Xian,maps:Map[]){
+export async function getNowPosition(ctx: Context, player: Xian) {
+
+    //定义所在大地图
+    let maps: Map[]
+
+    //判断是否在副本
+    player.isDungeon ? maps = (await ctx.database.get('dungeons', { id:player.id }))[0].dungeons.map : maps = map
     const areas = await positionAreas(ctx, player)
     const { up, down, left, right } = areas
     const x = (player.isDungeon ? player.position.dx : player.position.x)
     const y = (player.isDungeon ? player.position.dy : player.position.y)
     const thisPosition = maps.find(P => P.coordinates == x + "," + y)?.name
-    const thisCommand = maps.find(P => P.coordinates == x + "," + y).command.join("\n")
-    const strArea = player.friar.name + "  当前位置：" + thisPosition + "\n" + (up !== undefined ? `北部：${maps.find(P => P.id == up).name}\n` : '') + (down !== undefined ? `南部：${maps.find(P => P.id == down).name}\n` : '') + (left !== undefined ? `西部：${maps.find(P => P.id == left).name}\n` : '') + (right !== undefined ? `东部：${maps.find(P => P.id == right).name}\n` : '')
-    return {strArea,thisCommand}
+    const Command: string[] = maps.find(P => P.coordinates == x + "," + y)?.command
+    const i18nCommand: string[] = Command?.map(P => commandI18n[P])
+    const thisCommand = i18nCommand.join('\n')
+    const strArea = player.friar.name + "  当前位置：" + thisPosition + "\r\r " + (up !== undefined ? `>北部：${maps.find(P => P.id == up).name}\r` : '') + (down !== undefined ? `>南部：${maps.find(P => P.id == down).name}\r` : '') + (left !== undefined ? `>西部：${maps.find(P => P.id == left).name}\r` : '') + (right !== undefined ? `>东部：${maps.find(P => P.id == right).name}\r` : '')
+    return { strArea, thisCommand }
 
 }
 
-export async function sendMarkdornMessage(session:Session<never, never, Context>,strArea:string,thisCommand:string){
+export async function sendMarkdornMessage(session: Session<never, never, Context>, strArea: string, thisCommand: string) {
     const mdStr = strArea.split('\n')
     const mdCommand = thisCommand.split("\n")
     await session.bot.internal.sendMessage(session.channelId, {

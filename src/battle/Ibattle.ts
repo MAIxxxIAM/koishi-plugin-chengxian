@@ -2,6 +2,7 @@ import { Monster } from "../monster/IMonster"
 import { Skill } from "../skill/Skill"
 import { Ability, PlayerStage, Xian } from "../user/IUser"
 import { buffs, skills } from "../utils/data"
+import { commandI18n } from "../utils/method"
 
 
 //定义一个buff接口，包括名字，持续时间，效果
@@ -43,13 +44,11 @@ export class battler {
             }
             this.skillEquip = skillA.sort((a, b) => a.priority - b.priority)
         }
-        console.log(this.ability.flesh)
     }
     //创建一个添加buff方法，传入buffid，将buff实例化
     addBuff(buffId: number) {
         if (!this.buff) {
             this.buff = []
-            return
         }
         const aBuff = buffs.find(B => B.id == buffId)
         if (aBuff) {
@@ -62,7 +61,7 @@ export class battler {
             this.buff.push(buff)
         }
         this.ability[aBuff.ability] += aBuff.value
-        return `${this.name}获得了${aBuff.name},获得了${aBuff.value}点${aBuff.ability}，持续${aBuff.duration}回合`
+        return `${this.name}出现了${aBuff.name},${aBuff.value>0?'增加了':'失去了'}${Math.abs(aBuff.value)}点${commandI18n[aBuff.ability]}，持续${aBuff.duration}回合`
     }
 
     //每回合更新buff，将buff的持续时间减一，如果为0则删除
@@ -102,7 +101,7 @@ export class battler {
                 */
                 const damageStr= `${this.name}使用了${readySkill.name},对${target.name}造成了${damage}点伤害`
                 buffStr= target.addBuff(readySkill.buffId)
-                battleStr= `${this.name}使用了${readySkill.name},${buffStr}, ${damageStr}`
+                battleStr= `${damageStr}，${buffStr}`
 
         }
         this.skillEquip.forEach(S => {
@@ -110,7 +109,6 @@ export class battler {
                 S.round = S.cd
             }
         })
-        console.log(this.ability.flesh)
         return battleStr
 }
 }
