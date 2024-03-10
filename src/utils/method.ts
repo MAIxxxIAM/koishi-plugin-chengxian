@@ -148,7 +148,7 @@ export function getQi(culTime: number, player: Xian) {
     const x: number = identity[player.friar.identity].ability.perception
 
     //通过时间差计算修炼获得的经验
-    let qi = Math.floor(culTime / 1000 * perception / ((200 - x * 6) * 2))
+    let qi = Math.floor(culTime / (1000*60) * perception / ((200 - x * 6) * 2))
 
     //通过时间差计算修炼花费的灵石.一颗灵石折算10点气
     let spendLingshi = Math.ceil((qi / 10) < 1 ? 1 : (qi / 10))
@@ -157,12 +157,18 @@ export function getQi(culTime: number, player: Xian) {
         spendLingshi = player.lingshi
         qi = spendLingshi * 10
     }
+    const age = Number((culTime / 1000 / (60 * 60)).toFixed(2))
+console.log(age)
     player.lingshi -= spendLingshi
     player.friar.cultivation.qi += qi
+    player.friar.age = player.friar.age-age
+    
 
     return {
         qi,
-        spendLingshi
+        spendLingshi,
+        age
+        
     }
 }
 
