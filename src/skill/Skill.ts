@@ -10,4 +10,10 @@ export interface Skill {
     description?: string
 }
 
+export interface Sects{
+    id:number
+    name:string
+    skills:Skill[]
+}
+
 export type SkillEquip =[string?,string?,string?,string?]

@@ -13,6 +13,6 @@ export const stage = Stage.friar
 export const monsterStage = Stage.monster
 export const map = Maps as Map[]
 export const buffs = Buff
-export const skills = Skills as Skill[]
+export const shuShanSkills = Skills.shuShan as Skill[]
 export const dungeon = Dungeon
 

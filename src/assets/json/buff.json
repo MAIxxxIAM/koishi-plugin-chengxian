@@ -1,16 +1,37 @@
 [
     {
         "id": 0,
-        "name": "健体",
-        "ability": "flesh",
-        "duration":3,
-        "value": 10
+        "name": "剑意",
+        "ability": "magic",
+        "duration":2,
+        "value": 3
     },
     {
         "id": 1,
-        "name": "流血",
+        "name": "剑体",
         "ability": "flesh",
-        "duration":3,
-        "value": -10
+        "duration":2,
+        "value": 10
+    },
+    {
+        "id": 2,
+        "name": "剑气",
+        "ability": "flesh",
+        "duration":2,
+        "value": -8
+    },
+    {
+        "id": 3,
+        "name": "剑心",
+        "ability": "magic",
+        "duration":2,
+        "value": 5
+    },
+    {
+        "id": 4,
+        "name": "夜游",
+        "ability": "perception",
+        "duration":2,
+        "value": 8
     }
 ]

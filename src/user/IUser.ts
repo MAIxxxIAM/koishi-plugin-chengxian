@@ -1,7 +1,7 @@
 import { Context, is } from "koishi"
 import { Item } from "../item/Iitem"
 import { Pill } from "../pill/IPill"
-import { SkillEquip } from "../skill/Skill"
+import { Sects, SkillEquip } from "../skill/Skill"
 import { map } from "../utils/data"
 import { Dungeon, Dungeons } from "../dungeon/Idungeon"
 
@@ -23,6 +23,7 @@ export interface Friar {
     cultivation: PlayerStage
     ability: Ability
     identity: string | number
+    sects?:Sects
 }
 
 //玩家角色，包括id，角色信息，装备信息

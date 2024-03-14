@@ -1,7 +1,7 @@
 import { Monster } from "../monster/IMonster"
-import { Skill } from "../skill/Skill"
+import { Sects, Skill } from "../skill/Skill"
 import { Ability, PlayerStage, Xian } from "../user/IUser"
-import { buffs, skills } from "../utils/data"
+import { buffs,} from "../utils/data"
 import { commandI18n } from "../utils/method"
 
 
@@ -20,6 +20,7 @@ export class battler {
     cultivation: PlayerStage
     ability: Ability
     identity: string | number
+    sects:Sects
     buff?: Buff[]
     skillEquip?: Array<Skill>
 
@@ -30,17 +31,18 @@ export class battler {
         this.cultivation = player.friar.cultivation
         this.ability = player.friar.ability
         this.identity = player.friar.identity
+        this.sects = player.friar.sects
         let skillA: Skill[] = []
         //如果玩家有装备技能，将技能id实例化
         if (player.skillEquip) {
 
             for (let i = 0; i < 4; i++) {
-                skillA[i] = skills[Number(player.skillEquip[i])]
+                skillA[i] = player.friar.sects[Number(player.skillEquip[i])]
             }
             this.skillEquip = skillA
         } else {
             for (let i = 0; i < 4; i++) {
-                skillA[i] = skills[0]
+                skillA[i] = player.friar.sects[0]
             }
             this.skillEquip = skillA.sort((a, b) => a.priority - b.priority)
         }
@@ -87,7 +89,7 @@ export class battler {
         let buffStr: string = ''
         let readySkill = this.skillEquip.find(S => S?.round == 0)
         if (!readySkill) {
-            readySkill = skills[0]
+            readySkill = this.sects.skills[0]
         }
         switch (readySkill.target) {
             case 'self':

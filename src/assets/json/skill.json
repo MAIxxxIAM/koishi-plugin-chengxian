@@ -1,13 +1,111 @@
-[
+{
+    "shuShan":[
     {
         "id":"0",
-        "name":"测试技能",
+        "name":"普通剑术",
         "target":"enemy",
         "priority":1,
         "cd":1,
         "round":0,
+        "Damage":5,
+        "description":"毫无法力的剑术"
+    },
+    {
+        "id":"1",
+        "name":"飞剑术",
+        "target":"enemy",
+        "priority":1,
+        "cd":2,
+        "round":0,
+        "Damage":12,
+        "description":"一些基础的飞剑术"
+    },
+    {
+        "id":"2",
+        "name":"灵·剑意",
+        "target":"self",
+        "priority":2,
+        "cd":3,
+        "round":0,
+        "buffId":0,
+        "Damage":0,
+        "description":"凝聚剑意，提升自己的法力"
+    },
+    {
+        "id":"3",
+        "name":"灵·剑体",
+        "target":"self",
+        "priority":2,
+        "cd":3,
+        "round":0,
         "buffId":1,
-        "Damage":10,
-        "description":"测试技能"
+        "Damage":0,
+        "description":"灵力附体，提升自己的肉身"
+    },
+    {
+        "id":"4",
+        "name":"法·穿心",
+        "target":"enemy",
+        "priority":1,
+        "cd":4,
+        "round":0,
+        "buffId":2,
+        "Damage":12,
+        "description":"凝聚剑心，提升自己的法力"
+    },
+    {
+        "id":"5",
+        "name":"法·破魔",
+        "target":"enemy",
+        "priority":1,
+        "cd":3,
+        "round":0,
+        "buffId":3,
+        "Damage":8,
+        "description":"剑煞入体，药石难医"
+    },
+    {
+        "id":"6",
+        "name":"法·万剑归宗",
+        "target":"enemy",
+        "priority":4,
+        "cd":5,
+        "round":0,
+        "Damage":16,
+        "description":"剑宗秘技，剑魂生，万剑朝"
+    }
+],
+"nightKami":[
+    {
+        "id":"0",
+        "name":"普通魂术",
+        "target":"enemy",
+        "priority":1,
+        "cd":1,
+        "round":0,
+        "Damage":5,
+        "description":"普普通通的魂术"
+    },
+    {
+        "id":"1",
+        "name":"行魂",
+        "target":"enemy",
+        "priority":1,
+        "cd":2,
+        "round":0,
+        "Damage":12,
+        "description":"御使鬼物进行简单的攻击"
+    },
+    {
+        "id":"2",
+        "name":"灵·出游",
+        "target":"self",
+        "priority":2,
+        "cd":3,
+        "round":0,
+        "buffId":4,
+        "Damage":0,
+        "description":"灵魂出游，提升自己的悟性"
     }
 ]
+}
